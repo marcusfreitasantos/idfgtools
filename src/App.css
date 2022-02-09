@@ -1,38 +1,69 @@
-.App {
-  text-align: center;
+@import url(./reset.css);
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&family=Source+Serif+4:wght@200;500&display=swap");
+@import url(./libs/bootstrap/bootstrap.min.css);
+
+:root {
+  --cor-primaria: #118acb;
+  --cor-secundaria: #263775;
+  --cor-terciaria: #808080;
+  --cor-erro: #f97068;
+  --cor-black: #333;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.form-control {
+  border-radius: 50px !important;
+  padding: 15px !important;
+  margin-bottom: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+* {
+  font-family: "Source Sans Pro", sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.text {
+  color: var(--cor-terciaria);
+  font-size: 1.2rem;
+  margin: 0 0 20px 0;
 }
 
-.App-link {
-  color: #61dafb;
+.btn-primary {
+  border-radius: 50px !important;
+  background-color: var(--cor-primaria) !important;
+  margin: 10px 0 !important;
+  padding: 15px !important;
+  border: none;
+  font-size: 1.4rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+a {
+  text-decoration: none;
+  color: var(--cor-primaria);
+}
+
+.error {
+  color: var(--cor-erro);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.title {
+  font-size: 4rem;
+  color: var(--cor-primaria);
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+  font-family: "Source Serif 4", sans-serif;
+}
+
+.title::after {
+  content: "";
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: #ccc;
+  position: absolute;
+  top: 5px;
+  left: -5px;
+  border-radius: 0.2rem;
+  z-index: -1;
 }
