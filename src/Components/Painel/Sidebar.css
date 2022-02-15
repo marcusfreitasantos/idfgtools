@@ -1,0 +1,58 @@
+/*SIDEBAR*/
+.sidebar {
+  background: var(--cor-secundaria);
+  padding: 20px;
+  width: 15%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.avatar {
+  max-width: 100px;
+  border-radius: 50px;
+}
+
+.user-info {
+  margin: 40px 0;
+}
+
+.user-name {
+  font-size: 2rem;
+  color: white;
+  margin: 0;
+}
+
+.user-role {
+  font-size: 0.9rem;
+  color: white;
+  font-weight: 300;
+}
+
+.divisor-azul {
+  padding: 1px;
+  background: var(--cor-primaria);
+  height: 1px;
+  margin: 20px 0;
+}
+
+.sidebar-menu .nav-item a {
+  font-size: 1.4rem;
+  color: white;
+  font-weight: 300;
+  padding: 10px 0;
+}
+
+.sidebar svg {
+  margin-right: 10px;
+}
+
+.sidebar button {
+  color: white;
+  transition: 0.3s;
+}
+
+.sidebar button:hover {
+  color: var(--cor-primaria);
+}

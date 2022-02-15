@@ -1,0 +1,101 @@
+.card-title {
+  color: var(--cor-quaternaria);
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+}
+
+.icon-cor-primaria,
+.icon-cor-secundaria,
+.icon-cor-terciaria,
+.icon-cor-quaternaria {
+  background-color: var(--cor-primaria);
+  color: white;
+  border-radius: 50px;
+  padding: 10px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.icon-cor-secundaria {
+  background-color: var(--cor-secundaria);
+}
+
+.icon-cor-terciaria {
+  background-color: var(--cor-terciaria);
+}
+
+.icon-cor-quaternaria {
+  background-color: var(--cor-quaternaria);
+}
+
+.card-number {
+  font-size: 8rem;
+  color: var(--cor-secundaria);
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+}
+
+.card {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+.card:hover {
+  animation: grow 0.5s forwards;
+}
+
+.card-table {
+  padding: 40px 20px !important;
+  box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+.view {
+  color: var(--cor-terciaria);
+}
+
+.delete {
+  color: var(--cor-erro);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.searchform {
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 50px;
+  display: flex;
+}
+
+.searchform button svg {
+  color: var(--cor-terciaria);
+}
+
+.searchform input {
+  border: none;
+  background-color: none;
+}
+
+@keyframes grow {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}

@@ -1,24 +1,47 @@
 import React from "react";
 import { UserContext } from "../UserContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Route, Routes } from "react-router-dom";
+import Sidebar from "../Components/Painel/Sidebar";
+import Header from "../Components/Painel/Header";
+import Ipads from "../Pages/Ipads";
+import Perfil from "../Pages/Perfil";
+import Usuarios from "../Pages/Usuarios";
+import Dashboard from "../Pages/Dashboard";
+import "./Painel.css";
 
 export default function Painel() {
-  const { data, userLogout, login } = React.useContext(UserContext);
+  const { data, login } = React.useContext(UserContext);
+
+  const userRole = data.role;
 
   const navigate = useNavigate();
 
   React.useEffect(() => {
     if (!login) {
       navigate("/");
+    } else if (login && userRole === "editor") {
+      navigate("/painel");
+    } else if (login && userRole === "administrator") {
+      navigate("/painel");
+    } else {
+      navigate("/");
     }
   }, []);
 
-  console.log(login);
-
   return (
-    <div>
-      Olá, {data && data.role}
-      <button onClick={userLogout}>Sair</button>
-    </div>
+    <section className="main d-flex">
+      <Sidebar />
+      <div className="main-content">
+        <Header />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="ipads" element={<Ipads />} />
+            <Route path="perfil" element={<Perfil />} />
+            <Route path="usuarios" element={<Usuarios />} />
+          </Routes>
+        </div>
+      </div>
+    </section>
   );
 }

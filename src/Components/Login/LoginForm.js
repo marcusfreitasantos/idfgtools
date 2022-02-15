@@ -26,7 +26,7 @@ export default function LoginForm() {
         Bem vindo de volta, por favor faça login para acessar o painel.
       </p>
       <form className="formField" onSubmit={handleSubmit}>
-        <Input placeholder="Seu nome" type="text" {...username} required />
+        <Input placeholder="Seu email" type="text" {...username} required />
         <Input placeholder="Senha" type="password" {...password} required />
 
         <div className="d-flex justify-content-between">

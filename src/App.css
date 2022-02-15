@@ -5,9 +5,14 @@
 :root {
   --cor-primaria: #118acb;
   --cor-secundaria: #263775;
-  --cor-terciaria: #808080;
+  --cor-terciaria: #7cea9c;
+  --cor-quaternaria: #808080;
   --cor-erro: #f97068;
   --cor-black: #333;
+}
+
+body {
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 .form-control {
@@ -30,14 +35,45 @@
   border-radius: 50px !important;
   background-color: var(--cor-primaria) !important;
   margin: 10px 0 !important;
-  padding: 15px !important;
+  padding: 5px 20px !important;
   border: none;
   font-size: 1.4rem;
+  transition: 0.3s;
 }
 
 a {
   text-decoration: none;
-  color: var(--cor-primaria);
+  color: var(--cor-secundaria);
+  transition: 0.3s;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+p {
+  margin: 0;
+}
+
+svg {
+  padding: 2px;
+}
+
+button {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }
 
 .error {
@@ -66,4 +102,18 @@ a {
   left: -5px;
   border-radius: 0.2rem;
   z-index: -1;
+}
+
+.main-content {
+  width: 85%;
+}
+
+tr,
+thead {
+  border-color: var(--cor-primaria) !important;
+}
+
+thead {
+  font-weight: bold;
+  color: var(--cor-secundaria);
 }
