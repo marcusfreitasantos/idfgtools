@@ -7,6 +7,8 @@ import { IPADS_GET } from "../../api";
 export default function IpadList() {
   const token = localStorage.getItem("Token");
   const [ipads, setIpads] = React.useState();
+  const [disabled, setDisabled] = React.useState(false);
+
   async function getIpads() {
     const { url, options } = IPADS_GET(token);
     const response = await fetch(url, options);
@@ -14,8 +16,18 @@ export default function IpadList() {
     setIpads(json);
   }
 
+  function checkUrl() {
+    if (window.location.href === "http://localhost:3000/painel/ipads") {
+      console.log("ipads");
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }
+
   React.useEffect(() => {
     getIpads();
+    checkUrl();
   }, []);
 
   return (
@@ -81,10 +93,15 @@ export default function IpadList() {
               </tbody>
             </table>
 
-            <Link to="/ipads-list" className="btn btn-primary">
-              {" "}
-              Ver todos{" "}
-            </Link>
+            {disabled ? (
+              <Link to="/painel/ipads" className="btn btn-primary d-none">
+                Ver todos
+              </Link>
+            ) : (
+              <Link to="/painel/ipads" className="btn btn-primary">
+                Ver todos
+              </Link>
+            )}
           </div>
         </div>
       </div>

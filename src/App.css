@@ -37,7 +37,7 @@ body {
   margin: 10px 0 !important;
   padding: 5px 20px !important;
   border: none;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   transition: 0.3s;
 }
 
@@ -51,7 +51,8 @@ a {
   align-items: center;
 }
 
-a:hover {
+a:hover,
+.btn-primary:hover {
   opacity: 0.7;
 }
 
@@ -119,6 +120,21 @@ thead {
 thead {
   font-weight: bold;
   color: var(--cor-secundaria);
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.disabled {
+  background-color: none;
+  color: var(--cor-quaternaria);
+  transition: 0.3s;
+  font-size: 1.2rem;
+}
+
+.disabled:hover {
+  opacity: 0.7;
 }
 
 @media (max-width: 40rem) {
