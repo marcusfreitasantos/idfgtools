@@ -33,11 +33,19 @@ export default function Dashboard() {
     const { url, options } = GET_USERS(token);
     const response = await fetch(url, options);
     const json = await response.json();
-    console.log(json[0].roles[0]);
 
-    //const professores = Array.from(json).filter((item) => item.roles[0]);
+    for (let i = 0; i < json.length; i++) {
+      const permittedValues = [];
+      for (i = 0; i < json.length; i++) {
+        permittedValues[i] = json[i].roles[0];
+      }
 
-    //setUsers(json);
+      const professores = permittedValues.filter((item) =>
+        item.toLowerCase().includes("professor")
+      );
+
+      setUsers(professores);
+    }
   }
 
   React.useEffect(() => {

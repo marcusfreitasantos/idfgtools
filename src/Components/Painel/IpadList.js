@@ -5,21 +5,18 @@ import { Link } from "react-router-dom";
 import { IPADS_GET } from "../../api";
 
 export default function IpadList() {
-  //   const [ipads, setIpads] = React.useState();
+  const token = localStorage.getItem("Token");
+  const [ipads, setIpads] = React.useState();
+  async function getIpads() {
+    const { url, options } = IPADS_GET(token);
+    const response = await fetch(url, options);
+    const json = await response.json();
+    setIpads(json);
+  }
 
-  //   const token = localStorage.getItem("Token");
-
-  //   async function getIpads() {
-  //     const { url, options } = IPADS_GET(token);
-  //     const response = await fetch(url, options);
-  //     const json = await response.json();
-  //     setIpads(json);
-  //     //console.log("Ipads:", json);
-  //   }
-
-  //   React.useEffect(() => {
-  //     getIpads();
-  //   }, []);
+  React.useEffect(() => {
+    getIpads();
+  }, []);
 
   return (
     <>
@@ -52,32 +49,35 @@ export default function IpadList() {
                   <th scope="col">Número de Serie</th>
                   <th scope="col">Status</th>
                   <th scope="col">Responsável</th>
-                  <th scope="col">Função</th>
                   <th scope="col">Ações</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">
-                    <Checkbox />
-                  </th>
-                  <td>1</td>
-                  <td>IPAD001</td>
-                  <td>1AB23CDE45#</td>
-                  <td>Disponível</td>
-                  <td>John Doe</td>
-                  <td>Professor</td>
-                  <td>
-                    <div className="d-flex">
-                      <button className="view">
-                        <Eye />
-                      </button>
-                      <button className="delete">
-                        <Trash />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                {ipads &&
+                  ipads.map((item) => {
+                    return (
+                      <tr>
+                        <th scope="row">
+                          <Checkbox />
+                        </th>
+                        <td> {item.id} </td>
+                        <td>{item.nome}</td>
+                        <td>{item.numero_de_serie}</td>
+                        <td>{item.status_do_ipad}</td>
+                        <td>{item.responsavel}</td>
+                        <td>
+                          <div className="d-flex">
+                            <button className="view">
+                              <Eye />
+                            </button>
+                            <button className="delete">
+                              <Trash />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
 

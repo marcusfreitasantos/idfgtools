@@ -28,7 +28,7 @@ export function USER_GET(token) {
 
 export function GET_USERS(token) {
   return {
-    url: URL + "/wp/v2/users",
+    url: URL + "/wp/v2/users?per_page=100",
     options: {
       method: "GET",
       headers: {
