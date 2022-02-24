@@ -12,9 +12,12 @@ export default function Login() {
   const { login } = React.useContext(UserContext);
   const navigate = useNavigate();
 
-  if (login === true) {
-    navigate("/painel");
-  }
+  React.useEffect(() => {
+    if (login === true) {
+      navigate("/painel");
+    }
+  }, [login]);
+
   return (
     <section className="login">
       <div className="container d-flex justify-content-between flex-column">
@@ -23,7 +26,7 @@ export default function Login() {
           <div className="col-md-6">
             <Routes>
               <Route path="/" element={<LoginForm />} />
-              <Route path="criar" element={<LoginCreate />} />
+              {/* <Route path="criar" element={<LoginCreate />} /> */}
               <Route path="perdeu" element={<LoginPasswordLost />} />
               <Route path="resetar" element={<LoginPasswordReset />} />
             </Routes>

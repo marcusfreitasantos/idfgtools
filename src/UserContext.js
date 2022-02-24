@@ -10,6 +10,7 @@ export const UserStorage = ({ children }) => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const navigate = useNavigate();
+  const [modal, setModal] = React.useState(false);
 
   const token = localStorage.getItem("Token");
 
@@ -21,10 +22,12 @@ export const UserStorage = ({ children }) => {
           setLoading(true);
           const { url, options } = TOKEN_VALIDATE_POST(token);
           const response = await fetch(url, options);
-          if (!response.ok) throw new Error("Token inválido!");
+          const json = await response.json();
+          if (!response.ok) throw new Error(json.message);
           await getUser(token);
           navigate("/painel");
         } catch (err) {
+          setError(err);
           userLogout();
         } finally {
           setLoading(false);
@@ -75,13 +78,14 @@ export const UserStorage = ({ children }) => {
       value={{
         userLogin,
         getUser,
-        username: "marcus",
         data,
         token,
         userLogout,
         error,
         loading,
         login,
+        modal,
+        setModal,
       }}
     >
       {children}

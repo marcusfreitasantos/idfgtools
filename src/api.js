@@ -63,6 +63,46 @@ export function USER_POST(body) {
   };
 }
 
+export function USER_PUT(token, body) {
+  return {
+    url: URL + "/api/usuario/",
+    options: {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(body),
+    },
+  };
+}
+
+export function EDIT_USERS(token, userid, body) {
+  return {
+    url: URL + "/wp/v2/users/" + userid,
+    options: {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(body),
+    },
+  };
+}
+
+export function USER_DELETE(token, userid) {
+  return {
+    url: URL + "/wp/v2/users/" + userid + "?force=true&reassign=1",
+    options: {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    },
+  };
+}
+
 export function PASSWORD_LOST(body) {
   return {
     url: URL + "/bdpwr/v1/reset-password",
@@ -97,6 +137,21 @@ export function IPADS_GET(token) {
       headers: {
         Authorization: "Bearer " + token,
       },
+    },
+  };
+}
+
+export function UPLOAD_MEDIA(token, filename, body) {
+  return {
+    url: URL + "/wp/v2/media",
+    options: {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Disposition": `attachment; filename=${filename}`,
+        "Content-Type": "multipart/form-data;",
+      },
+      body: JSON.stringify(body),
     },
   };
 }

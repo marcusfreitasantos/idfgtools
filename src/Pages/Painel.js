@@ -8,9 +8,11 @@ import Perfil from "../Pages/Perfil";
 import Usuarios from "../Pages/Usuarios";
 import Dashboard from "../Pages/Dashboard";
 import "./Painel.css";
+import User from "../Pages/User";
+import NewUser from "./NewUser";
 
 export default function Painel() {
-  const { data, login } = React.useContext(UserContext);
+  const { data, login, userLogout } = React.useContext(UserContext);
 
   const userRole = data.role;
 
@@ -24,7 +26,7 @@ export default function Painel() {
     } else if (login && userRole === "administrator") {
       navigate("/painel");
     } else {
-      navigate("/");
+      userLogout();
     }
   }, []);
 
@@ -35,10 +37,12 @@ export default function Painel() {
         <Header />
         <div className="content">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route exact path="/" element={<Dashboard />} />
             <Route path="ipads" element={<Ipads />} />
             <Route path="perfil" element={<Perfil />} />
             <Route path="usuarios" element={<Usuarios />} />
+            <Route path="usuarios/:userid" element={<User />} />
+            <Route path="usuarios/novo" element={<NewUser />} />
           </Routes>
         </div>
       </div>

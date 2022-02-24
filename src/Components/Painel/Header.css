@@ -5,7 +5,9 @@
   padding: 0 20px;
 }
 .header-avatar {
-  max-width: 40px;
+  width: 40px;
+  height: 40px;
   border-radius: 50px;
   margin-left: 20px;
+  object-fit: cover;
 }

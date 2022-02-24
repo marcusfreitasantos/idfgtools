@@ -1,6 +1,5 @@
 import React from "react";
 import { Tablet, Eye, Trash, Search } from "react-feather";
-import Checkbox from "../../Components/Forms/Checkbox";
 import { Link } from "react-router-dom";
 import { IPADS_GET } from "../../api";
 
@@ -18,7 +17,6 @@ export default function IpadList() {
 
   function checkUrl() {
     if (window.location.href === "http://localhost:3000/painel/ipads") {
-      console.log("ipads");
       setDisabled(true);
     } else {
       setDisabled(false);
@@ -32,7 +30,7 @@ export default function IpadList() {
 
   return (
     <>
-      <div className="row" id="ipads-list">
+      <div className="row mb-4 mt-4" id="ipads-list">
         <div className="col-md-12">
           <div className="card-table">
             <div className="table-header">
@@ -53,12 +51,9 @@ export default function IpadList() {
             <table className="table">
               <thead>
                 <tr>
-                  <th scope="col">
-                    <Checkbox />
-                  </th>
                   <th scope="col">ID</th>
                   <th scope="col">Numeração do Ipad</th>
-                  <th scope="col">Número de Serie</th>
+                  <th scope="col">Número de Série</th>
                   <th scope="col">Status</th>
                   <th scope="col">Responsável</th>
                   <th scope="col">Ações</th>
@@ -68,14 +63,15 @@ export default function IpadList() {
                 {ipads &&
                   ipads.map((item) => {
                     return (
-                      <tr>
-                        <th scope="row">
-                          <Checkbox />
-                        </th>
+                      <tr key={item.id}>
                         <td> {item.id} </td>
                         <td>{item.nome}</td>
                         <td>{item.numero_de_serie}</td>
-                        <td>{item.status_do_ipad}</td>
+                        {item.status_do_ipad === "ocupado" ? (
+                          <td className="ocupado"> {item.status_do_ipad}</td>
+                        ) : (
+                          <td className="disponivel"> {item.status_do_ipad}</td>
+                        )}
                         <td>{item.responsavel}</td>
                         <td>
                           <div className="d-flex">

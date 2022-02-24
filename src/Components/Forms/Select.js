@@ -1,6 +1,7 @@
-import React from "react";
+import React, { Children } from "react";
 
-export default function Input({
+export default function Select({
+  children,
   placeholder,
   type,
   value,
@@ -14,18 +15,18 @@ export default function Input({
 }) {
   return (
     <div>
-      <label htmlFor={id}>{label}</label>
-      <input
-        className="form-control"
-        placeholder={placeholder}
-        type={type}
+      <label for={id}>{label}</label>
+      <select
+        className="form-select"
         value={value}
         onChange={onChange}
         onBlur={onBlur}
         required={required}
         disabled={disabled}
         id={id}
-      />
+      >
+        {children}
+      </select>
       {error && <p className="error"> {error} </p>}
     </div>
   );

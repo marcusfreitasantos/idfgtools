@@ -50,8 +50,6 @@ export default function LoginForm() {
         )}
         {error && <p className="error">{error}</p>}
       </form>
-
-      <Link to="/login/criar">Cadastro</Link>
     </div>
   );
 }
