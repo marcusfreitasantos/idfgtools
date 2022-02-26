@@ -7,7 +7,7 @@ function NewUser() {
       <div className="ipads-header row d-flex justify-content-between">
         <div className="col-md-8">
           <h1 className="title">Novo Usuário</h1>
-          <p>Informe os dados e clique em publicar.</p>
+          <p>Informe os dados e clique em cadastrar.</p>
         </div>
       </div>
 

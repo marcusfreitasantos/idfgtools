@@ -1,15 +1,18 @@
 import React from "react";
 import Button from "../Forms/Button";
 import Input from "../Forms/Input";
-import Avatar from "../../img/avatar.jpg";
+import Avatar from "../../img/avatar.png";
 import "./UserProfile.css";
 import { USER_PUT } from "../../api";
 import Modal from "./Modal";
 import { UserContext } from "../../UserContext";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { userLoginRedux } from "../../Features/User";
 
 export default function UserProfile() {
   const token = localStorage.getItem("Token");
-
+  const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
   const [nome, setNome] = React.useState();
   const [sobrenome, setSobrenome] = React.useState();
@@ -17,8 +20,9 @@ export default function UserProfile() {
   const [setor, setSetor] = React.useState();
   const [password, setPassword] = React.useState();
   const [error, setError] = React.useState();
-  const [user, setUser] = React.useState();
   const { modal, setModal, data } = React.useContext(UserContext);
+  const currentUser = useSelector((state) => state.user.value);
+
   async function editUser() {
     setLoading(true);
     try {
@@ -33,7 +37,15 @@ export default function UserProfile() {
       const json = await response.json();
       console.log("userPut: ", json);
       setModal(true);
-      setUser(json);
+      dispatch(
+        userLoginRedux({
+          nome: json.first_name,
+          sobrenome: json.last_name,
+          email: json.user_email,
+          funcao: json.roles,
+          setor: json.setor,
+        })
+      );
     } catch (err) {
       setError(err.message);
     } finally {
@@ -47,7 +59,6 @@ export default function UserProfile() {
   }
 
   React.useEffect(() => {
-    setUser(data);
     setNome(data.nome);
     setSobrenome(data.sobrenome);
     setEmail(data.email);
@@ -105,7 +116,7 @@ export default function UserProfile() {
                 label="Função"
                 id="funcao"
                 type="text"
-                value={user && user.role}
+                value={currentUser.funcao}
                 disabled
               />
               <Input

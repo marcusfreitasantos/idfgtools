@@ -2,12 +2,14 @@ import React from "react";
 import { UserContext } from "../../UserContext";
 import { Link } from "react-router-dom";
 import { Home, Tablet, Users, User, Power } from "react-feather";
-import avatar from "../../../src/img/avatar.jpg";
+import avatar from "../../../src/img/avatar.png";
 import Logo from "../../../src/img/logo/logo_idfg_branco.svg";
 import "./Sidebar.css";
+import { useSelector } from "react-redux";
 
 export default function Sidebar() {
-  const { data, userLogout } = React.useContext(UserContext);
+  const { userLogout } = React.useContext(UserContext);
+  const currentUser = useSelector((state) => state.user.value);
 
   return (
     <>
@@ -19,8 +21,8 @@ export default function Sidebar() {
 
           <div className="user-info text-center ">
             <img src={avatar} className="avatar" alt="avatar"></img>
-            <h1 className="user-name"> {data && data.nome} </h1>
-            <h2 className="user-role">{data && data.role}</h2>
+            <h1 className="user-name"> {currentUser.nome} </h1>
+            <h2 className="user-role">{currentUser.funcao}</h2>
           </div>
 
           <div className="divisor-azul"></div>

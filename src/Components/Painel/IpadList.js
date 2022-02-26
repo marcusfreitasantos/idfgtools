@@ -1,18 +1,52 @@
 import React from "react";
 import { Tablet, Eye, Trash, Search } from "react-feather";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IPADS_GET } from "../../api";
+import Button from "../Forms/Button";
 
 export default function IpadList() {
   const token = localStorage.getItem("Token");
   const [ipads, setIpads] = React.useState();
   const [disabled, setDisabled] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState();
+  const [searchTerm, setSearchTerm] = React.useState();
+  const [filter, setFilter] = React.useState("todos");
+  const [ocupados, setOcupados] = React.useState();
+  const [disponiveis, setDisponiveis] = React.useState();
+  const [todos, setTodos] = React.useState();
+  const navigate = useNavigate();
 
   async function getIpads() {
-    const { url, options } = IPADS_GET(token);
-    const response = await fetch(url, options);
-    const json = await response.json();
-    setIpads(json);
+    setLoading(true);
+
+    try {
+      const { url, options } = IPADS_GET(token);
+      const response = await fetch(url, options);
+      if (!response.ok) throw new Error("Nada encontrado");
+      if (!response.status === 200) {
+        navigate("/");
+      }
+      const json = await response.json();
+      const ipadsOcupados = Array.from(json).filter((item) =>
+        item.status_do_ipad.toLowerCase().includes("ocupado")
+      );
+
+      const ipadsDisponiveis = Array.from(json).filter((item) =>
+        item.status_do_ipad.toLowerCase().includes("disponível")
+      );
+
+      setOcupados(ipadsOcupados);
+
+      setDisponiveis(ipadsDisponiveis);
+
+      setIpads(json);
+      setTodos(json);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   function checkUrl() {
@@ -28,8 +62,60 @@ export default function IpadList() {
     checkUrl();
   }, []);
 
+  function filterList(e) {
+    e.preventDefault();
+    switch (e.target.id) {
+      case "disponivel":
+        setFilter("disponivel");
+        setIpads(disponiveis);
+        break;
+
+      case "ocupado":
+        setFilter("ocupados");
+        setIpads(ocupados);
+        break;
+
+      case "todos":
+        setFilter("todos");
+        setIpads(todos);
+        break;
+
+      default:
+        setFilter("todos");
+        setIpads(todos);
+        break;
+    }
+  }
+
   return (
     <>
+      <div className="filter-bar">
+        <div className="row">
+          <div className="col-md-3 d-flex m-4 justify-content-between">
+            <Button
+              onClick={filterList}
+              id="todos"
+              className={filter === "todos" ? "btn-primary" : "btn-light"}
+            >
+              TODOS
+            </Button>
+            <Button
+              onClick={filterList}
+              id="disponivel"
+              className={filter === "disponivel" ? "btn-primary" : "btn-light"}
+            >
+              DISPONÍVEL
+            </Button>
+            <Button
+              onClick={filterList}
+              id="ocupado"
+              className={filter === "ocupados" ? "btn-primary" : "btn-light"}
+            >
+              OCUPADO
+            </Button>
+          </div>
+        </div>
+      </div>
       <div className="row mb-4 mt-4" id="ipads-list">
         <div className="col-md-12">
           <div className="card-table">
@@ -42,10 +128,13 @@ export default function IpadList() {
               </h5>
 
               <form className="searchform">
-                <input type="search" id="search" name="search" />
-                <button>
-                  <Search />
-                </button>
+                <input
+                  type="search"
+                  id="search"
+                  name="search"
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <Search />
               </form>
             </div>
             <table className="table">
@@ -60,34 +149,82 @@ export default function IpadList() {
                 </tr>
               </thead>
               <tbody>
-                {ipads &&
-                  ipads.map((item) => {
-                    return (
-                      <tr key={item.id}>
-                        <td> {item.id} </td>
-                        <td>{item.nome}</td>
-                        <td>{item.numero_de_serie}</td>
-                        {item.status_do_ipad === "ocupado" ? (
-                          <td className="ocupado"> {item.status_do_ipad}</td>
-                        ) : (
-                          <td className="disponivel"> {item.status_do_ipad}</td>
-                        )}
-                        <td>{item.responsavel}</td>
-                        <td>
-                          <div className="d-flex">
-                            <button className="view">
-                              <Eye />
-                            </button>
-                            <button className="delete">
-                              <Trash />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                {searchTerm
+                  ? ipads &&
+                    ipads
+                      .filter((item) => {
+                        if (
+                          item.nome
+                            .toString()
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase())
+                        ) {
+                          return item;
+                        }
+                      })
+                      .map((item) => {
+                        return (
+                          <tr
+                            key={item.id}
+                            className={
+                              item.status_do_ipad === "ocupado"
+                                ? "ocupado"
+                                : "disponivel"
+                            }
+                          >
+                            <td> {item.id} </td>
+                            <td>{item.nome}</td>
+                            <td>{item.numero_de_serie}</td>
+                            <td className="status"> {item.status_do_ipad} </td>
+                            <td>{item.responsavel}</td>
+                            <td>
+                              <div className="d-flex">
+                                <button className="view">
+                                  <Eye />
+                                </button>
+                                <button className="delete">
+                                  <Trash />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                  : ipads &&
+                    ipads.map((item) => {
+                      return (
+                        <tr
+                          key={item.id}
+                          className={
+                            item.status_do_ipad === "ocupado"
+                              ? "ocupado"
+                              : "disponivel"
+                          }
+                        >
+                          <td> {item.id} </td>
+                          <td>{item.nome}</td>
+                          <td>{item.numero_de_serie}</td>
+                          <td className="status"> {item.status_do_ipad} </td>
+                          <td>{item.responsavel}</td>
+                          <td>
+                            <div className="d-flex">
+                              <button className="view">
+                                <Eye />
+                              </button>
+                              <button className="delete">
+                                <Trash />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
               </tbody>
             </table>
+            <div className="d-flex justify-content-center align-items-center">
+              {loading && <div className="loader"></div>}
+              {error && <p className="error"> {error} </p>}
+            </div>
 
             {disabled ? (
               <Link to="/painel/ipads" className="btn btn-primary d-none">

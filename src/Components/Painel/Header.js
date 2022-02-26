@@ -1,12 +1,14 @@
 import React from "react";
 import { UserContext } from "../../UserContext";
 import { Link } from "react-router-dom";
-import { PlusCircle, Home } from "react-feather";
-import avatar from "../../../src/img/avatar.jpg";
+import { Home } from "react-feather";
+import avatar from "../../../src/img/avatar.png";
 import "./Header.css";
+import { useSelector } from "react-redux";
 
 export default function Header() {
-  const { data, userLogout } = React.useContext(UserContext);
+  const currentUser = useSelector((state) => state.user.value);
+  const { userLogout } = React.useContext(UserContext);
 
   return (
     <>
@@ -21,19 +23,10 @@ export default function Header() {
               <Home size={20} />
               IDFG | Gestão de equipamentos
             </Link>
-
-            <Link
-              to="/painel"
-              className="d-flex align-items-center"
-              style={{ color: "#263775" }}
-            >
-              <PlusCircle size={20} />
-              Novo
-            </Link>
           </div>
           <div className="col-md-6 d-flex justify-content-end align-items-center">
             <a href="/" onClick={userLogout}>
-              {data && data.email}
+              {currentUser.email}
               <img src={avatar} alt="avatar" className="header-avatar"></img>
             </a>
           </div>

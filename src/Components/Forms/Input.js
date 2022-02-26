@@ -14,7 +14,8 @@ export default function Input({
 }) {
   return (
     <div>
-      <label htmlFor={id}>{label}</label>
+      {label && <label htmlFor={id}>{label}</label>}
+
       <input
         className="form-control"
         placeholder={placeholder}

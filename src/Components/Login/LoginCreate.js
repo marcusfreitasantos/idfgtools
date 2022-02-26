@@ -11,6 +11,7 @@ export default function LoginCreate() {
   const [nome, setNome] = React.useState();
   const [sobrenome, setSobrenome] = React.useState();
   const [setor, setSetor] = React.useState();
+  const [tel, setTel] = React.useState();
   const [error, setError] = React.useState();
   const [loading, setLoading] = React.useState(false);
   const email = UseForm("email");
@@ -19,6 +20,11 @@ export default function LoginCreate() {
   const { userLogin, modal, setModal } = React.useContext(UserContext);
 
   const navigate = useNavigate();
+
+  function handleClick() {
+    setModal(false);
+    navigate("/painel/usuarios");
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -30,11 +36,12 @@ export default function LoginCreate() {
       nome: nome,
       sobrenome: sobrenome,
       setor: setor,
+      telefone: tel,
     });
     try {
       const response = await fetch(url, options);
       const json = await response.json();
-      console.log(response);
+      console.log("response: ", response, "json: ", json);
       if (response.ok) {
         setModal(true);
       } else {
@@ -66,6 +73,15 @@ export default function LoginCreate() {
             id="sobrenome"
             value={sobrenome}
             onChange={(e) => setSobrenome(e.target.value)}
+          />
+
+          <Input
+            type="number"
+            placeholder="Telefone"
+            label="Telefone"
+            id="tel"
+            value={tel}
+            onChange={(e) => setTel(e.target.value)}
           />
 
           <Input
@@ -101,7 +117,13 @@ export default function LoginCreate() {
         </form>
       </div>
       {error && <p className="error">{error}</p>}
-      <Modal />
+      <Modal
+        onClick={handleClick}
+        title="Usuário Criado"
+        text="As informações foram salvas no sistema."
+      >
+        Confirmar
+      </Modal>
     </div>
   );
 }

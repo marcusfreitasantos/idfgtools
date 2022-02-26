@@ -5,11 +5,10 @@ import Button from "../Components/Forms/Button";
 import Modal from "../Components/Painel/Modal";
 import Input from "../Components/Forms/Input";
 import Select from "../Components/Forms/Select";
-
-import Avatar from "../img/avatar.jpg";
+import Avatar from "../img/avatar.png";
 import { UserContext } from "../UserContext";
 
-export default function User() {
+export default function EditUsers() {
   const { userid } = useParams();
   const id = parseInt(userid);
 
@@ -21,6 +20,7 @@ export default function User() {
   const [nome, setNome] = React.useState();
   const [sobrenome, setSobrenome] = React.useState();
   const [email, setEmail] = React.useState();
+  const [tel, setTel] = React.useState();
   const [setor, setSetor] = React.useState();
   const [funcao, setFuncao] = React.useState();
 
@@ -48,11 +48,14 @@ export default function User() {
     try {
       const { url, options } = EDIT_USERS(token, id, {
         name: nome,
-        last_name: sobrenome,
+        first_name: nome,
+        sobrenome: sobrenome,
         email: email,
         meta: {
           setor: setor,
+          telefone: tel,
         },
+
         roles: funcao,
       });
       const response = await fetch(url, options);
@@ -60,11 +63,12 @@ export default function User() {
       const json = await response.json();
       setModal(true);
       setUser(json);
-      setNome(user && user.nome);
+      setNome(user && user.first_name);
       setSobrenome(user && user.last_name);
       setEmail(user && user.email);
       setFuncao(user && user.funcao);
       setSetor(user && user.setor);
+      setTel(user && user.telefone);
 
       console.log(json);
     } catch (err) {
@@ -124,6 +128,15 @@ export default function User() {
                 value={email}
                 placeholder={user && user.user_email}
                 onChange={(e) => setEmail(e.target.value)}
+              />
+
+              <Input
+                label="Telefone"
+                id="tel"
+                type="number"
+                value={tel}
+                placeholder={user && user.telefone}
+                onChange={(e) => setTel(e.target.value)}
               />
             </div>
 

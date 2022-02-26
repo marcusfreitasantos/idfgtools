@@ -7,8 +7,7 @@ import Ipads from "../Pages/Ipads";
 import Perfil from "../Pages/Perfil";
 import Usuarios from "../Pages/Usuarios";
 import Dashboard from "../Pages/Dashboard";
-import "./Painel.css";
-import User from "../Pages/User";
+import EditUsers from "./EditUsers";
 import NewUser from "./NewUser";
 
 export default function Painel() {
@@ -35,13 +34,13 @@ export default function Painel() {
       <Sidebar />
       <div className="main-content">
         <Header />
-        <div className="content">
+        <div className="content" style={{ padding: "60px 20px" }}>
           <Routes>
             <Route exact path="/" element={<Dashboard />} />
             <Route path="ipads" element={<Ipads />} />
             <Route path="perfil" element={<Perfil />} />
             <Route path="usuarios" element={<Usuarios />} />
-            <Route path="usuarios/:userid" element={<User />} />
+            <Route path="usuarios/:userid" element={<EditUsers />} />
             <Route path="usuarios/novo" element={<NewUser />} />
           </Routes>
         </div>

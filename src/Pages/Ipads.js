@@ -23,16 +23,6 @@ export default function Ipads() {
 
       <div className="divisor-azul"></div>
 
-      <div className="filter-bar">
-        <div className="row">
-          <div className="col-md-4 d-flex justify-content-between">
-            <Button>TODOS</Button>
-            <Button className="disabled">DISPONÍVEL</Button>
-            <Button className="disabled">OCUPADO</Button>
-          </div>
-        </div>
-      </div>
-
       <IpadList />
     </>
   );

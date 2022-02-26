@@ -37,7 +37,7 @@ body {
   border-radius: 5px !important;
   background-color: var(--cor-primaria) !important;
   margin: 10px 0 !important;
-  padding: 15px 20px !important;
+  padding: 10px 20px !important;
   border: none;
   font-size: 1.2rem;
   transition: 0.3s;
@@ -149,11 +149,11 @@ input[type="checkbox"] {
   opacity: 0.7;
 }
 
-.ocupado {
+.ocupado .status {
   color: var(--cor-erro);
 }
 
-.disponivel {
+.disponivel .status {
   color: var(--cor-terciaria);
 }
 
@@ -174,6 +174,24 @@ label {
 .modal-content {
   box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.1);
   border: none;
+}
+
+.loader {
+  border: 6px solid #f3f3f3; /* Light grey */
+  border-top: 6px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 40rem) {

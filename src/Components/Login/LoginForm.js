@@ -9,7 +9,7 @@ import { UserContext } from "../../UserContext";
 export default function LoginForm() {
   const username = UseForm();
   const password = UseForm();
-  const { userLogin, error, loading } = React.useContext(UserContext);
+  const { userLogin, error, loading, login } = React.useContext(UserContext);
 
   async function handleSubmit(e) {
     e.preventDefault();
