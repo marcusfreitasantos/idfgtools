@@ -1,6 +1,5 @@
 import React from "react";
 import UserList from "../Components/Painel/UserList";
-import Button from "../Components/Forms/Button";
 import { Link } from "react-router-dom";
 
 export default function Usuarios() {

@@ -1,6 +1,6 @@
 import React from "react";
 import IpadList from "../Components/Painel/IpadList";
-import Button from "../Components/Forms/Button";
+import { Link } from "react-router-dom";
 
 export default function Ipads() {
   return (
@@ -16,7 +16,9 @@ export default function Ipads() {
 
         <div className="col-md-6 text-right">
           <div className="d-flex justify-content-end align-items-center h-100">
-            <Button>Adicionar Novo</Button>
+            <Link to="/painel/ipads/novo" className="btn btn-primary">
+              Adicionar Novo
+            </Link>
           </div>
         </div>
       </div>

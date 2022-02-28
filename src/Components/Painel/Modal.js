@@ -8,7 +8,10 @@ export default function Modal({ children, onClick, text, title }) {
   const [disabled, setDisabled] = React.useState(false);
 
   function checkUrl() {
-    if (window.location.href === "http://localhost:3000/painel/usuarios") {
+    if (
+      window.location.href === "http://localhost:3000/painel/usuarios" ||
+      window.location.href === "http://localhost:3000/painel/ipads"
+    ) {
       setDisabled(true);
     } else {
       setDisabled(false);

@@ -9,6 +9,8 @@ import Usuarios from "../Pages/Usuarios";
 import Dashboard from "../Pages/Dashboard";
 import EditUsers from "./EditUsers";
 import NewUser from "./NewUser";
+import NewIpad from "./NewIpad";
+import EditIpads from "./EditIpads";
 
 export default function Painel() {
   const { data, login, userLogout } = React.useContext(UserContext);
@@ -42,6 +44,8 @@ export default function Painel() {
             <Route path="usuarios" element={<Usuarios />} />
             <Route path="usuarios/:userid" element={<EditUsers />} />
             <Route path="usuarios/novo" element={<NewUser />} />
+            <Route path="ipads/novo" element={<NewIpad />} />
+            <Route path="ipads/:ipadid" element={<EditIpads />} />
           </Routes>
         </div>
       </div>

@@ -7,6 +7,7 @@ import Input from "../Components/Forms/Input";
 import Select from "../Components/Forms/Select";
 import Avatar from "../img/avatar.png";
 import { UserContext } from "../UserContext";
+import { Link } from "react-router-dom";
 
 export default function EditUsers() {
   const { userid } = useParams();
@@ -181,6 +182,9 @@ export default function EditUsers() {
               />
             </div>
             <div>
+              <Link to="/painel/ipads" className="btn btn-light">
+                Cancelar
+              </Link>
               {loading ? (
                 <Button disabled>Carregando...</Button>
               ) : (

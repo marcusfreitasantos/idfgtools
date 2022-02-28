@@ -141,6 +141,46 @@ export function IPADS_GET(token) {
   };
 }
 
+export function IPAD_EDIT(token, ipadid, body) {
+  return {
+    url: URL + "/api/ipad/" + ipadid,
+    options: {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(body),
+    },
+  };
+}
+
+export function IPADS_POST(token, body) {
+  return {
+    url: URL + "/api/ipad",
+    options: {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(body),
+    },
+  };
+}
+
+export function IPAD_DELETE(token, ipadid) {
+  return {
+    url: URL + "/api/ipad/" + ipadid + "?force=true",
+    options: {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    },
+  };
+}
+
 export function UPLOAD_MEDIA(token, filename, body) {
   return {
     url: URL + "/wp/v2/media",

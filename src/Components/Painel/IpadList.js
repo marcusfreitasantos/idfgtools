@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Tablet, Eye, Trash, Search } from "react-feather";
 import { Link, useNavigate } from "react-router-dom";
-import { IPADS_GET } from "../../api";
+import { IPADS_GET, IPAD_DELETE } from "../../api";
+import { UserContext } from "../../UserContext";
 import Button from "../Forms/Button";
+import Modal from "./Modal";
 
 export default function IpadList() {
   const token = localStorage.getItem("Token");
@@ -16,6 +18,8 @@ export default function IpadList() {
   const [disponiveis, setDisponiveis] = React.useState();
   const [todos, setTodos] = React.useState();
   const navigate = useNavigate();
+  const { modal, setModal } = useContext(UserContext);
+  const [ipadId, setIpadId] = React.useState();
 
   async function getIpads() {
     setLoading(true);
@@ -60,7 +64,7 @@ export default function IpadList() {
   React.useEffect(() => {
     getIpads();
     checkUrl();
-  }, []);
+  }, [modal]);
 
   function filterList(e) {
     e.preventDefault();
@@ -85,6 +89,20 @@ export default function IpadList() {
         setIpads(todos);
         break;
     }
+  }
+
+  function confirmIpadDelete(e) {
+    e.preventDefault();
+    setModal(true);
+    setIpadId(e.currentTarget.id);
+  }
+
+  async function deleteIpad(e) {
+    e.preventDefault();
+    const { url, options } = IPAD_DELETE(token, ipadId);
+    const response = await fetch(url, options);
+    const json = await response.json();
+    setModal(false);
   }
 
   return (
@@ -208,10 +226,17 @@ export default function IpadList() {
                           <td>{item.responsavel}</td>
                           <td>
                             <div className="d-flex">
-                              <button className="view">
+                              <Link
+                                to={`/painel/ipads/${item.id}`}
+                                className="view"
+                              >
                                 <Eye />
-                              </button>
-                              <button className="delete">
+                              </Link>
+                              <button
+                                className="delete"
+                                id={item.id}
+                                onClick={confirmIpadDelete}
+                              >
                                 <Trash />
                               </button>
                             </div>
@@ -236,6 +261,15 @@ export default function IpadList() {
               </Link>
             )}
           </div>
+          {modal && (
+            <Modal
+              text="Você está certo disso?"
+              title="Atenção"
+              onClick={deleteIpad}
+            >
+              Confirmar Exclusão?
+            </Modal>
+          )}
         </div>
       </div>
     </>

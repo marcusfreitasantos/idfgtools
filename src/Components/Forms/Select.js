@@ -15,7 +15,7 @@ export default function Select({
 }) {
   return (
     <div>
-      <label for={id}>{label}</label>
+      <label htmlFor={id}>{label}</label>
       <select
         className="form-select"
         value={value}

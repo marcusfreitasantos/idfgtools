@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../Forms/Button";
 import Input from "../Forms/Input";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UseForm from "../../Hooks/UseForm";
 import { USER_POST } from "../../api";
 import { UserContext } from "../../UserContext";
@@ -17,7 +17,7 @@ export default function LoginCreate() {
   const email = UseForm("email");
   const password = UseForm();
 
-  const { userLogin, modal, setModal } = React.useContext(UserContext);
+  const { setModal } = React.useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -29,7 +29,6 @@ export default function LoginCreate() {
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
-    console.log(nome, sobrenome, setor, email, password);
     const { url, options } = USER_POST({
       email: email.value,
       senha: password.value,
@@ -41,7 +40,6 @@ export default function LoginCreate() {
     try {
       const response = await fetch(url, options);
       const json = await response.json();
-      console.log("response: ", response, "json: ", json);
       if (response.ok) {
         setModal(true);
       } else {
