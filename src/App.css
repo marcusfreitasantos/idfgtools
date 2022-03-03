@@ -36,7 +36,7 @@ body {
 .btn-primary {
   border-radius: 5px !important;
   background-color: var(--cor-primaria) !important;
-  /* margin: 10px 0 !important; */
+  margin-right: 10px !important;
   padding: 10px 20px !important;
   border: none;
   font-size: 1.2rem;
@@ -45,7 +45,7 @@ body {
 
 .btn-light {
   border-radius: 5px !important;
-  /* margin: 10px 0 !important; */
+  margin-right: 10px !important;
   padding: 10px 20px !important;
   border: none;
   font-size: 1.2rem;
@@ -177,8 +177,8 @@ label {
 }
 
 .loader {
-  border: 6px solid #f3f3f3; /* Light grey */
-  border-top: 6px solid #3498db; /* Blue */
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
   border-radius: 50%;
   width: 60px;
   height: 60px;

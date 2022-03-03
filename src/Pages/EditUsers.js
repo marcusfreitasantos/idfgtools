@@ -8,6 +8,7 @@ import Select from "../Components/Forms/Select";
 import Avatar from "../img/avatar.png";
 import { UserContext } from "../UserContext";
 import { Link } from "react-router-dom";
+import InputMask from "react-input-mask";
 
 export default function EditUsers() {
   const { userid } = useParams();
@@ -131,10 +132,12 @@ export default function EditUsers() {
                 onChange={(e) => setEmail(e.target.value)}
               />
 
-              <Input
-                label="Telefone"
+              <label htmlFor="tel">Telefone</label>
+              <InputMask
+                className="form-control"
+                mask="(99) 99999-9999"
                 id="tel"
-                type="number"
+                type="text"
                 value={tel}
                 placeholder={user && user.telefone}
                 onChange={(e) => setTel(e.target.value)}
@@ -143,8 +146,8 @@ export default function EditUsers() {
 
             <div className="col-md-6">
               <Select
-                label="role"
-                id="role"
+                label="Função"
+                id="funcao"
                 value={funcao}
                 onChange={(e) => setFuncao(e.target.value)}
               >

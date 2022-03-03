@@ -8,7 +8,7 @@ The goal here is to make a CRUD where the company can manage their equipments, P
 
 ## Built with
 
-ReactJS | Bootstrap | Wordpress Rest API
+ReactJS | Redux | Bootstrap | Wordpress Rest API
 
 ## Contributing
 

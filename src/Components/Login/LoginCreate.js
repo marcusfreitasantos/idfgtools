@@ -6,6 +6,7 @@ import UseForm from "../../Hooks/UseForm";
 import { USER_POST } from "../../api";
 import { UserContext } from "../../UserContext";
 import Modal from "../Painel/Modal";
+import InputMask from "react-input-mask";
 
 export default function LoginCreate() {
   const [nome, setNome] = React.useState();
@@ -73,19 +74,20 @@ export default function LoginCreate() {
             onChange={(e) => setSobrenome(e.target.value)}
           />
 
-          <Input
-            type="number"
-            placeholder="Telefone"
-            label="Telefone"
+          <InputMask
+            className="form-control"
+            mask="(99) 99999-9999"
             id="tel"
+            type="text"
             value={tel}
+            placeholder="Telefone"
             onChange={(e) => setTel(e.target.value)}
           />
 
           <Input
             type="text"
-            placeholder="Setor"
-            label="Setor"
+            placeholder="Área de Conhecimento"
+            label="Área de Conhecimento"
             id="setor"
             value={setor}
             onChange={(e) => setSetor(e.target.value)}

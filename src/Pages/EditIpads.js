@@ -208,7 +208,7 @@ export default function EditIpads() {
               />
             </div>
           </div>
-          <div className="col-md-4">
+          <div>
             <Link to="/painel/ipads" className="btn btn-light">
               Cancelar
             </Link>
