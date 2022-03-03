@@ -43,6 +43,7 @@ export const UserStorage = ({ children }) => {
         email: json.email,
         funcao: json.role,
         setor: json.setor,
+        avatar: json.avatar,
       })
     );
   }

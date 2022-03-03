@@ -6,6 +6,7 @@ const initialState = {
   email: "",
   funcao: "",
   setor: "",
+  avatar: "",
 };
 
 const userSlice = createSlice({

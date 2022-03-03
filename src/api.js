@@ -181,17 +181,15 @@ export function IPAD_DELETE(token, ipadid) {
   };
 }
 
-export function UPLOAD_MEDIA(token, filename, body) {
+export function UPLOAD_MEDIA(token, formdata) {
   return {
     url: URL + "/wp/v2/media",
     options: {
       method: "POST",
       headers: {
         Authorization: "Bearer " + token,
-        "Content-Disposition": `attachment; filename=${filename}`,
-        "Content-Type": "multipart/form-data;",
       },
-      body: JSON.stringify(body),
+      body: formdata,
     },
   };
 }

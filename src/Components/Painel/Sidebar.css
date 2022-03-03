@@ -15,6 +15,7 @@
   height: 100px;
   border-radius: 50px;
   object-fit: cover;
+  border: 2px solid var(--cor-primaria);
 }
 
 .user-info {

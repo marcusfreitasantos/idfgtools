@@ -3,7 +3,7 @@ import Button from "../Forms/Button";
 import Input from "../Forms/Input";
 import Avatar from "../../img/avatar.png";
 import "./UserProfile.css";
-import { USER_PUT } from "../../api";
+import { UPLOAD_MEDIA, USER_PUT } from "../../api";
 import Modal from "./Modal";
 import { UserContext } from "../../UserContext";
 import { useSelector } from "react-redux";
@@ -23,6 +23,22 @@ export default function UserProfile() {
   const { modal, setModal, data } = React.useContext(UserContext);
   const currentUser = useSelector((state) => state.user.value);
 
+  const [avatar, setAvatar] = React.useState();
+
+  async function uploadMedia(e) {
+    const formData = new FormData();
+    formData.append("file", e.target.files[0]);
+    formData.append("title", currentUser.nome + "_avatar");
+    formData.append("caption", currentUser.nome + "_avatar");
+
+    const { url, options } = UPLOAD_MEDIA(token, formData);
+
+    const response = await fetch(url, options);
+    const json = await response.json();
+    console.log(json.guid.raw);
+    setAvatar(json.guid.raw);
+  }
+
   async function editUser() {
     setLoading(true);
     try {
@@ -31,6 +47,7 @@ export default function UserProfile() {
         sobrenome: sobrenome,
         email: email,
         setor: setor,
+        avatar: avatar,
       });
       const response = await fetch(url, options);
       if (!response.ok) throw new Error("Usuário não possui permissão");
@@ -44,6 +61,7 @@ export default function UserProfile() {
           email: json.user_email,
           funcao: json.roles,
           setor: json.setor,
+          avatar: json.avatar,
         })
       );
     } catch (err) {
@@ -55,6 +73,7 @@ export default function UserProfile() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    uploadMedia();
     editUser();
   }
 
@@ -63,6 +82,8 @@ export default function UserProfile() {
     setSobrenome(data.sobrenome);
     setEmail(data.email);
     setSetor(data.setor);
+    setAvatar(data.avatar);
+    console.log(data.avatar);
   }, [data]);
 
   return (
@@ -138,7 +159,11 @@ export default function UserProfile() {
             </div>
           </div>
           <div className="col-md-4 text-center">
-            <img src={Avatar} alt={Avatar} className="user-img " />
+            <img
+              src={currentUser.avatar ? currentUser.avatar : avatar}
+              alt="avatar"
+              className="user-img "
+            />
             <div>
               <h5 className="subtitle">Alterar foto de perfil</h5>
               <Input
@@ -146,11 +171,13 @@ export default function UserProfile() {
                 id="imgUpload"
                 name="avatar"
                 accept="image/*"
+                onChange={uploadMedia}
               />
             </div>
           </div>
         </div>
       </form>
+
       {error && <p className="error">{error}</p>}
 
       {modal && (

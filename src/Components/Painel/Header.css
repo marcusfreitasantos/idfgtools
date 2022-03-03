@@ -10,4 +10,5 @@
   border-radius: 50px;
   margin-left: 20px;
   object-fit: cover;
+  border: 2px solid var(--cor-primaria);
 }

@@ -20,7 +20,11 @@ export default function Sidebar() {
           </div>
 
           <div className="user-info text-center ">
-            <img src={avatar} className="avatar" alt="avatar"></img>
+            <img
+              src={currentUser.avatar ? currentUser.avatar : avatar}
+              className="avatar"
+              alt="avatar"
+            ></img>
             <h1 className="user-name"> {currentUser.nome} </h1>
             <h2 className="user-role">{currentUser.funcao}</h2>
           </div>
