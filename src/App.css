@@ -36,7 +36,6 @@ body {
 .btn-primary {
   border-radius: 5px !important;
   background-color: var(--cor-primaria) !important;
-  margin-right: 10px !important;
   padding: 10px 20px !important;
   border: none;
   font-size: 1.2rem;
@@ -50,6 +49,10 @@ body {
   border: none;
   font-size: 1.2rem;
   transition: 0.3s;
+}
+
+#disponivel {
+  margin-left: 10px;
 }
 
 a {

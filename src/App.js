@@ -4,16 +4,18 @@ import "./App.css";
 import Login from "./Components/Login/Login";
 import Painel from "./Pages/Painel";
 import { UserStorage } from "./UserContext";
+import NotFound from "./Pages/NotFound";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename="/materiais">
         <UserStorage>
           <Routes>
-            <Route exact path="/painel/*" element={<Painel />} />
-            <Route exact path="/" element={<Login />} />
-            <Route exact path="/login/*" element={<Login />} />
+            <Route path="/painel/*" element={<Painel />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/login/*" element={<Login />} />
+            <Route path="/*" element={<NotFound />} />
           </Routes>
         </UserStorage>
       </BrowserRouter>

@@ -58,7 +58,6 @@ export const UserStorage = ({ children }) => {
       const { data } = await response.json();
       localStorage.setItem("Token", data.token);
       await getUser(data.token);
-      //navigate("/painel");
     } catch (err) {
       setError(err.message);
       setLogin(false);
@@ -83,7 +82,6 @@ export const UserStorage = ({ children }) => {
             throw new Error(json.message);
           } else {
             await getUser(token);
-            //navigate("/painel");
           }
         } catch (err) {
           setError(err);

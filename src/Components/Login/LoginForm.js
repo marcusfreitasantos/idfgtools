@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "../Forms/Button";
 import Input from "../Forms/Input";
-import Checkbox from "../Forms/Checkbox";
 import UseForm from "../../Hooks/UseForm";
 import { UserContext } from "../../UserContext";
 
@@ -29,11 +28,6 @@ export default function LoginForm() {
         <Input placeholder="Seu email" type="text" {...username} required />
         <Input placeholder="Senha" type="password" {...password} required />
 
-        <div className="d-flex justify-content-between">
-          <Checkbox label="Lembre-me" name="lembre" />
-          <Link to="/login/perdeu">Perdeu sua senha?</Link>
-        </div>
-
         {loading ? (
           <Button disabled>Carregando...</Button>
         ) : (
@@ -50,6 +44,9 @@ export default function LoginForm() {
         )}
         {error && <p className="error">{error}</p>}
       </form>
+      <div className="d-flex justify-content-between">
+        <Link to="/login/perdeu">Perdeu sua senha?</Link>
+      </div>
     </div>
   );
 }

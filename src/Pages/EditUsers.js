@@ -7,7 +7,7 @@ import Input from "../Components/Forms/Input";
 import Select from "../Components/Forms/Select";
 import Avatar from "../img/avatar.png";
 import { UserContext } from "../UserContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputMask from "react-input-mask";
 
 export default function EditUsers() {
@@ -15,6 +15,7 @@ export default function EditUsers() {
   const id = parseInt(userid);
 
   const token = localStorage.getItem("Token");
+  const navigate = useNavigate();
 
   const [loading, setLoading] = React.useState(false);
   const [user, setUser] = React.useState();
@@ -43,6 +44,12 @@ export default function EditUsers() {
         }
       }
     }
+  }
+
+  function handleClick(e) {
+    e.preventDefault();
+    setModal(false);
+    navigate("/painel/usuarios");
   }
 
   async function editUser() {
@@ -103,7 +110,7 @@ export default function EditUsers() {
       <div className="divisor-azul"></div>
       <form className="formField card-table" onSubmit={handleSubmit}>
         <div className="row d-flex align-items-center">
-          <div className="col-md-8 row">
+          <div className="row">
             <div className="col-md-6">
               <Input
                 label="Nome"
@@ -185,7 +192,7 @@ export default function EditUsers() {
               />
             </div>
             <div>
-              <Link to="/painel/ipads" className="btn btn-light">
+              <Link to="/painel/usuarios" className="btn btn-light">
                 Cancelar
               </Link>
               {loading ? (
@@ -204,18 +211,6 @@ export default function EditUsers() {
               )}
             </div>
           </div>
-          <div className="col-md-4 text-center">
-            <img src={Avatar} alt={Avatar} className="user-img " />
-            <div>
-              <h5 className="subtitle">Alterar foto de perfil</h5>
-              <Input
-                type="file"
-                id="imgUpload"
-                name="avatar"
-                accept="image/*"
-              />
-            </div>
-          </div>
         </div>
       </form>
       {error && <p className="error">{error}</p>}
@@ -223,7 +218,7 @@ export default function EditUsers() {
         <Modal
           title="Tudo OK!"
           text="Suas alterações foram salvas"
-          onClick={() => setModal(false)}
+          onClick={handleClick}
         >
           Confirmar
         </Modal>

@@ -1,5 +1,6 @@
-const URL = "http://localhost/idfgtools/admin/wp-json";
-//const URL = "https://dogsapi.origamid.dev/json";
+//const URL = "http://localhost/idfgtools/admin/wp-json";
+const URL = "https://app.idfg.com.br/materiais-backend/wp-json";
+//const URL = "https://mafreitas.com.br/appmateriais/wp-json";
 
 export function TOKEN_POST(body) {
   return {

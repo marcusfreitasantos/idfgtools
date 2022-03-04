@@ -5,7 +5,6 @@ import { Home } from "react-feather";
 import avatar from "../../../src/img/avatar.png";
 import "./Header.css";
 import { useSelector } from "react-redux";
-import { current } from "@reduxjs/toolkit";
 
 export default function Header() {
   const currentUser = useSelector((state) => state.user.value);
@@ -26,14 +25,14 @@ export default function Header() {
             </Link>
           </div>
           <div className="col-md-6 d-flex justify-content-end align-items-center">
-            <a href="/" onClick={userLogout}>
+            <Link to="/" onClick={userLogout}>
               {currentUser.email}
               <img
                 src={currentUser.avatar ? currentUser.avatar : avatar}
                 alt="avatar"
                 className="header-avatar"
               ></img>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

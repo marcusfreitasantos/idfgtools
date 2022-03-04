@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../Forms/Button";
 import Input from "../Forms/Input";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import UseForm from "../../Hooks/UseForm";
 import { USER_POST } from "../../api";
 import { UserContext } from "../../UserContext";
@@ -109,11 +109,17 @@ export default function LoginCreate() {
             {...password}
           />
 
-          {loading ? (
-            <Button>Cadastrando...</Button>
-          ) : (
-            <Button>Cadastrar</Button>
-          )}
+          <div className="">
+            <Link to="/painel/usuarios" className="btn btn-light">
+              Cancelar
+            </Link>
+
+            {loading ? (
+              <Button>Cadastrando...</Button>
+            ) : (
+              <Button>Cadastrar</Button>
+            )}
+          </div>
         </form>
       </div>
       {error && <p className="error">{error}</p>}

@@ -54,7 +54,9 @@ export default function IpadList() {
   }
 
   function checkUrl() {
-    if (window.location.href === "http://localhost:3000/painel/ipads") {
+    if (
+      window.location.href === "https://app.idfg.com.br/materiais/painel/ipads"
+    ) {
       setDisabled(true);
     } else {
       setDisabled(false);

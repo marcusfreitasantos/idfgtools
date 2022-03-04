@@ -78,13 +78,12 @@ export default function UserProfile() {
   }
 
   React.useEffect(() => {
-    setNome(data.nome);
-    setSobrenome(data.sobrenome);
-    setEmail(data.email);
-    setSetor(data.setor);
-    setAvatar(data.avatar);
-    console.log(data.avatar);
-  }, [data]);
+    setNome(currentUser.nome);
+    setSobrenome(currentUser.sobrenome);
+    setEmail(currentUser.email);
+    setSetor(currentUser.setor);
+    setAvatar(currentUser.avatar);
+  }, [loading]);
 
   return (
     <>

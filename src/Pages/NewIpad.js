@@ -4,7 +4,7 @@ import Button from "../Components/Forms/Button";
 import Modal from "../Components/Painel/Modal";
 import { IPADS_POST, GET_USERS } from "../api";
 import { UserContext } from "../UserContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Select from "../Components/Forms/Select";
 
 function NewIpad() {
@@ -157,11 +157,16 @@ function NewIpad() {
               onChange={(e) => setSerie(e.target.value)}
             />
 
-            {loading ? (
-              <Button>Cadastrando...</Button>
-            ) : (
-              <Button>Cadastrar</Button>
-            )}
+            <div className="">
+              <Link to="/painel/ipads" className="btn btn-light">
+                Cancelar
+              </Link>
+              {loading ? (
+                <Button>Cadastrando...</Button>
+              ) : (
+                <Button>Cadastrar</Button>
+              )}
+            </div>
           </form>
         </div>
         {error && <p className="error">{error}</p>}

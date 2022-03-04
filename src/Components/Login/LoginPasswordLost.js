@@ -16,7 +16,7 @@ export default function LoginPasswordLost() {
     if (email.validate()) {
       const { url, options } = PASSWORD_LOST({
         email: email.value,
-        url: "http://localhost:3000/login/resetar",
+        url: "/login/resetar",
       });
       const response = await fetch(url, options);
       const json = await response.json();

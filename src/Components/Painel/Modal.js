@@ -9,8 +9,8 @@ export default function Modal({ children, onClick, text, title }) {
 
   function checkUrl() {
     if (
-      window.location.href === "http://localhost:3000/painel/usuarios" ||
-      window.location.href === "http://localhost:3000/painel/ipads"
+      window.location.href === "/painel/usuarios" ||
+      window.location.href === "/painel/ipads"
     ) {
       setDisabled(true);
     } else {
