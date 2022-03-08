@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Tablet, Eye, Trash, Search } from "react-feather";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { IPADS_GET, IPAD_DELETE } from "../../api";
 import { UserContext } from "../../UserContext";
 import Button from "../Forms/Button";
@@ -16,6 +16,7 @@ export default function IpadList() {
   const [filter, setFilter] = React.useState("todos");
   const [ocupados, setOcupados] = React.useState();
   const [disponiveis, setDisponiveis] = React.useState();
+  const [manutencao, setManutencao] = React.useState();
   const [todos, setTodos] = React.useState();
   const navigate = useNavigate();
   const { modal, setModal } = useContext(UserContext);
@@ -40,9 +41,15 @@ export default function IpadList() {
         item.status_do_ipad.toLowerCase().includes("disponível")
       );
 
+      const ipadsManutencao = Array.from(json).filter((item) =>
+        item.status_do_ipad.toLowerCase().includes("manutenção")
+      );
+
       setOcupados(ipadsOcupados);
 
       setDisponiveis(ipadsDisponiveis);
+
+      setManutencao(ipadsManutencao);
 
       setIpads(json);
       setTodos(json);
@@ -53,9 +60,12 @@ export default function IpadList() {
     }
   }
 
+  const location = useLocation();
+
   function checkUrl() {
     if (
-      window.location.href === "https://app.idfg.com.br/materiais/painel/ipads"
+      location.pathname === "/painel/usuarios" ||
+      location.pathname === "/painel/ipads"
     ) {
       setDisabled(true);
     } else {
@@ -86,6 +96,11 @@ export default function IpadList() {
         setIpads(todos);
         break;
 
+      case "manutencao":
+        setFilter("manutencao");
+        setIpads(manutencao);
+        break;
+
       default:
         setFilter("todos");
         setIpads(todos);
@@ -109,9 +124,9 @@ export default function IpadList() {
 
   return (
     <>
-      <div className="filter-bar">
+      <div className="filter-bar mt-5">
         <div className="row">
-          <div className="col-md-3 d-flex m-4 justify-content-between">
+          <div className="d-flex">
             <Button
               onClick={filterList}
               id="todos"
@@ -132,6 +147,13 @@ export default function IpadList() {
               className={filter === "ocupados" ? "btn-primary" : "btn-light"}
             >
               OCUPADO
+            </Button>
+            <Button
+              onClick={filterList}
+              id="manutencao"
+              className={filter === "manutencao" ? "btn-primary" : "btn-light"}
+            >
+              MANUTENÇÃO
             </Button>
           </div>
         </div>
@@ -216,9 +238,9 @@ export default function IpadList() {
                         <tr
                           key={item.id}
                           className={
-                            item.status_do_ipad === "ocupado"
-                              ? "ocupado"
-                              : "disponivel"
+                            item.status_do_ipad === "disponível"
+                              ? "disponivel"
+                              : "ocupado"
                           }
                         >
                           <td> {item.id} </td>

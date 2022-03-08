@@ -118,6 +118,7 @@ function NewIpad() {
               </option>
               ,<option value="disponível">Disponível</option>
               <option value="ocupado">Ocupado</option>
+              <option value="manutencao">Manutenção</option>
             </Select>
 
             <Select

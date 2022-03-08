@@ -2,15 +2,17 @@ import React from "react";
 import Button from "../Forms/Button";
 import "./Modal.css";
 import { UserContext } from "../../UserContext";
+import { useLocation } from "react-router-dom";
 
 export default function Modal({ children, onClick, text, title }) {
   const { modal, setModal } = React.useContext(UserContext);
   const [disabled, setDisabled] = React.useState(false);
+  const location = useLocation();
 
   function checkUrl() {
     if (
-      window.location.href === "/painel/usuarios" ||
-      window.location.href === "/painel/ipads"
+      location.pathname === "/painel/usuarios" ||
+      location.pathname === "/painel/ipads"
     ) {
       setDisabled(true);
     } else {

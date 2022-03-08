@@ -24,6 +24,7 @@ export default function LoginForm() {
       <p className="text">
         Bem vindo de volta, por favor faça login para acessar o painel.
       </p>
+
       <form className="formField" onSubmit={handleSubmit}>
         <Input placeholder="Seu email" type="text" {...username} required />
         <Input placeholder="Senha" type="password" {...password} required />

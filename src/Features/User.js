@@ -7,6 +7,7 @@ const initialState = {
   funcao: "",
   setor: "",
   avatar: "",
+  telefone: "",
 };
 
 const userSlice = createSlice({

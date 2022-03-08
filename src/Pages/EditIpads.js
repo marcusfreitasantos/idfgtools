@@ -21,6 +21,7 @@ export default function EditIpads() {
   const [serie, setSerie] = React.useState();
   const { modal, setModal } = React.useContext(UserContext);
   const [users, setUsers] = React.useState();
+  const [select, setSelect] = React.useState();
   const { ipadid } = useParams();
   const navigate = useNavigate();
 
@@ -50,6 +51,34 @@ export default function EditIpads() {
           setResponsavel(json[i].responsavel);
           setTurma(json[i].turma);
           setSerie(json[i].serie);
+
+          const status = json[i].status_do_ipad;
+
+          if (status === "disponível") {
+            setSelect([
+              <option value="disponível" selected>
+                Disponível
+              </option>,
+              <option value="ocupado">Ocupado</option>,
+              <option value="manutenção">Manutenção</option>,
+            ]);
+          } else if (status === "ocupado") {
+            setSelect([
+              <option value="ocupado" selected>
+                Ocupado
+              </option>,
+              <option value="disponível">Disponível</option>,
+              <option value="manutenção">Manutenção</option>,
+            ]);
+          } else {
+            setSelect([
+              <option value="manutenção" selected>
+                Manutenção
+              </option>,
+              <option value="disponível">Disponível</option>,
+              <option value="ocupado">Ocupado</option>,
+            ]);
+          }
         }
       }
     }
@@ -152,19 +181,7 @@ export default function EditIpads() {
                   }
                 }}
               >
-                {ipad && ipad.status_do_ipad === "disponível"
-                  ? [
-                      <option value="disponível" selected>
-                        Disponível
-                      </option>,
-                      <option value="ocupado">Ocupado</option>,
-                    ]
-                  : [
-                      <option value="ocupado" selected>
-                        Ocupado
-                      </option>,
-                      <option value="disponível">Disponível</option>,
-                    ]}
+                {select}
               </Select>
             </div>
 

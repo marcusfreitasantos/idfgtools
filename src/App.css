@@ -37,6 +37,7 @@ body {
   border-radius: 5px !important;
   background-color: var(--cor-primaria) !important;
   padding: 10px 20px !important;
+  margin: 2px;
   border: none;
   font-size: 1.2rem;
   transition: 0.3s;
@@ -44,15 +45,11 @@ body {
 
 .btn-light {
   border-radius: 5px !important;
-  margin-right: 10px !important;
+  margin: 2px;
   padding: 10px 20px !important;
   border: none;
   font-size: 1.2rem;
   transition: 0.3s;
-}
-
-#disponivel {
-  margin-left: 10px;
 }
 
 a {

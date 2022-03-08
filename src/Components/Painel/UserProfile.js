@@ -9,6 +9,7 @@ import { UserContext } from "../../UserContext";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { userLoginRedux } from "../../Features/User";
+import InputMask from "react-input-mask";
 
 export default function UserProfile() {
   const token = localStorage.getItem("Token");
@@ -19,10 +20,11 @@ export default function UserProfile() {
   const [email, setEmail] = React.useState();
   const [setor, setSetor] = React.useState();
   const [password, setPassword] = React.useState();
+  const [tel, setTel] = React.useState();
+
   const [error, setError] = React.useState();
   const { modal, setModal, data } = React.useContext(UserContext);
   const currentUser = useSelector((state) => state.user.value);
-
   const [avatar, setAvatar] = React.useState();
 
   async function uploadMedia(e) {
@@ -31,12 +33,19 @@ export default function UserProfile() {
     formData.append("title", currentUser.nome + "_avatar");
     formData.append("caption", currentUser.nome + "_avatar");
 
-    const { url, options } = UPLOAD_MEDIA(token, formData);
-
-    const response = await fetch(url, options);
-    const json = await response.json();
-    console.log(json.guid.raw);
-    setAvatar(json.guid.raw);
+    setLoading(true);
+    try {
+      const { url, options } = UPLOAD_MEDIA(token, formData);
+      const response = await fetch(url, options);
+      if (!response.ok) throw new Error(response.text);
+      const json = await response.json();
+      console.log(json.guid.raw);
+      setAvatar(json.guid.raw);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function editUser() {
@@ -48,6 +57,8 @@ export default function UserProfile() {
         email: email,
         setor: setor,
         avatar: avatar,
+        senha: password,
+        telefone: tel,
       });
       const response = await fetch(url, options);
       if (!response.ok) throw new Error("Usuário não possui permissão");
@@ -62,6 +73,7 @@ export default function UserProfile() {
           funcao: json.roles,
           setor: json.setor,
           avatar: json.avatar,
+          telefone: tel,
         })
       );
     } catch (err) {
@@ -73,7 +85,6 @@ export default function UserProfile() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    uploadMedia();
     editUser();
   }
 
@@ -83,7 +94,8 @@ export default function UserProfile() {
     setEmail(currentUser.email);
     setSetor(currentUser.setor);
     setAvatar(currentUser.avatar);
-  }, [loading]);
+    setTel(currentUser.telefone);
+  }, [modal]);
 
   return (
     <>
@@ -111,6 +123,16 @@ export default function UserProfile() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+              />
+
+              <label htmlFor="tel">Telefone</label>
+              <InputMask
+                className="form-control"
+                mask="(99) 99999-9999"
+                id="tel"
+                type="text"
+                value={tel}
+                onChange={(e) => setTel(e.target.value)}
               />
 
               <div>
@@ -159,7 +181,7 @@ export default function UserProfile() {
           </div>
           <div className="col-md-4 text-center">
             <img
-              src={currentUser.avatar ? currentUser.avatar : avatar}
+              src={currentUser.avatar ? currentUser.avatar : Avatar}
               alt="avatar"
               className="user-img "
             />

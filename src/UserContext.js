@@ -44,6 +44,7 @@ export const UserStorage = ({ children }) => {
         funcao: json.role,
         setor: json.setor,
         avatar: json.avatar,
+        telefone: json.telefone,
       })
     );
   }
@@ -54,7 +55,7 @@ export const UserStorage = ({ children }) => {
       setLoading(true);
       const { url, options } = TOKEN_POST({ username, password });
       const response = await fetch(url, options);
-      if (!response.ok) throw new Error(`Erro: ${response.statusText}`);
+      if (!response.ok) throw new Error("Usuário ou Senha Incorretos");
       const { data } = await response.json();
       localStorage.setItem("Token", data.token);
       await getUser(data.token);

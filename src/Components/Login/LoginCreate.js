@@ -16,7 +16,6 @@ export default function LoginCreate() {
   const [error, setError] = React.useState();
   const [loading, setLoading] = React.useState(false);
   const email = UseForm("email");
-  const password = UseForm();
 
   const { setModal } = React.useContext(UserContext);
 
@@ -32,7 +31,7 @@ export default function LoginCreate() {
     setLoading(true);
     const { url, options } = USER_POST({
       email: email.value,
-      senha: password.value,
+      senha: "idfg@2022",
       nome: nome,
       sobrenome: sobrenome,
       setor: setor,
@@ -99,14 +98,6 @@ export default function LoginCreate() {
             label="E-mail"
             id="email"
             {...email}
-          />
-          <Input
-            type="password"
-            placeholder="Senha"
-            required
-            label="Senha"
-            id="senha"
-            {...password}
           />
 
           <div className="">
