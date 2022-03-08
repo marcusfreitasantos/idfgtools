@@ -10,6 +10,10 @@ The goal here is to make a CRUD where the company can manage their equipments, P
 
 ReactJS | Redux | Bootstrap | Wordpress Rest API
 
+## Deploy
+
+The beta version of the application can be access with this link: https://mafreitas.com.br/idfgtools/
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
