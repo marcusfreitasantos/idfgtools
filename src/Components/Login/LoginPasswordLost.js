@@ -3,26 +3,45 @@ import Input from "../Forms/Input";
 import Button from "../Forms/Button";
 import UseForm from "../../Hooks/UseForm";
 import { PASSWORD_LOST } from "../../api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Modal from "../Painel/Modal";
+import { UserContext } from "../../UserContext";
 
 export default function LoginPasswordLost() {
   const email = UseForm();
   const [data, setData] = React.useState();
+  const navigate = useNavigate();
   const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState();
+  const { setModal, modal } = React.useContext(UserContext);
+
+  function handleClick(e) {
+    e.preventDefault();
+    navigate("/login/resetar");
+    setModal(false);
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     if (email.validate()) {
-      const { url, options } = PASSWORD_LOST({
-        email: email.value,
-        url: "/login/resetar",
-      });
-      const response = await fetch(url, options);
-      const json = await response.json();
-      setData(json);
-      setLoading(false);
-      console.log("Response:", response, "Json:", json);
+      try {
+        const { url, options } = PASSWORD_LOST({
+          email: email.value,
+        });
+        const response = await fetch(url, options);
+        if (!response.ok)
+          throw new Error("Nenhum usuário encontrado com este e-mail.");
+        const json = await response.json();
+        setData(json);
+        console.log("Response:", response, "Json:", json);
+        setModal(true);
+        setError("");
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
     }
   }
   return (
@@ -36,8 +55,17 @@ export default function LoginPasswordLost() {
           <Button>Enviar Email</Button>
         )}
       </form>
-      {data && <p style={{ color: "#7CEA9C" }}>{data.message}</p>}
+      {error && <p className="error">{error}</p>}
       <Link to="/login">Lembrou a Senha?</Link>
+      {!error && modal && (
+        <Modal
+          onClick={handleClick}
+          title="Código enviado"
+          text="Enviamos um código para o seu e-mail."
+        >
+          Confirmar
+        </Modal>
+      )}
     </section>
   );
 }

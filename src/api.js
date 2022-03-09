@@ -130,6 +130,19 @@ export function PASSWORD_RESET(body) {
   };
 }
 
+export function PASSWORD_CODE_VALIDATE(body) {
+  return {
+    url: URL + "/bdpwr/v1/validate-code",
+    options: {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(body),
+    },
+  };
+}
+
 export function IPADS_GET(token) {
   return {
     url: URL + "/api/ipads",
