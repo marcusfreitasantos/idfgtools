@@ -1,6 +1,4 @@
-// const URL = "http://localhost/idfgtools/admin/wp-json";
-const URL = "https://app.idfg.com.br/materiais-backend/wp-json";
-// const URL = "https://mafreitas.com.br/appmateriais/wp-json";
+const URL = process.env.REACT_APP_BASE_URL;
 
 export function TOKEN_POST(body) {
   return {
