@@ -12,11 +12,6 @@ ReactJS | Redux | Bootstrap | Wordpress Rest API
 
 ## Deploy
 
-The beta version of the application can be access with this link: https://mafreitas.com.br/idfgtools/
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-Please make sure to update tests as appropriate.
+A test version of the application can be accessed with this link: https://mafreitas.com.br/idfgtools/
 
 ## Thanks for watching!!
